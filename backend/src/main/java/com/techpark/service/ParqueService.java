@@ -170,6 +170,7 @@ public class ParqueService {
         ColaPrioridad cola = obtenerColaDeAtraccion(nombreAtraccion);
         if (cola != null) {
             cola.encolar(ticket);
+            visitante.agregarAlHistorial(nombreAtraccion); // registra en historial
         }
 
         return true;
