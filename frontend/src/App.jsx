@@ -2,6 +2,7 @@ import { Routes, Route, Link } from "react-router-dom"
 import Home from "./pages/Home"
 import Visitantes from "./pages/Visitantes"
 import Admin from "./pages/Admin"
+import Tickets from "./pages/Tickets"
 import "./App.css"
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
                     <Link to="/">Inicio</Link>
                     <Link to="/visitantes">Visitantes</Link>
                     <Link to="/admin">Admin</Link>
+                    <Link to="/tickets">Tickets</Link>
                 </div>
             </nav>
 
@@ -20,6 +22,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/visitantes" element={<Visitantes />} />
                 <Route path="/admin" element={<Admin />} />
+                <Route path="/tickets" element={<Tickets />} />
             </Routes>
         </div>
     )
