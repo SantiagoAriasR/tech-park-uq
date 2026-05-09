@@ -1,0 +1,207 @@
+.admin {
+    padding: 30px 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.admin h2 {
+    font-size: 1.8rem;
+    color: #1e3a5f;
+    margin-bottom: 24px;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-top: 4px solid #2e75b6;
+}
+
+.stat-numero {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1e3a5f;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 6px;
+}
+
+.seccion-titulo {
+    font-size: 1.3rem;
+    color: #1e3a5f;
+    margin-bottom: 16px;
+}
+
+.tabla-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow-x: auto;
+}
+
+.tabla-admin {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-admin thead {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2e75b6 100%);
+    color: white;
+}
+
+.tabla-admin th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.tabla-admin td {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f0f0f0;
+    color: #444;
+    vertical-align: middle;
+}
+
+.tabla-admin tbody tr:hover {
+    background-color: #f8faff;
+}
+
+.tabla-admin tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.badge-estado {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.cola-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.85rem;
+}
+
+.proximo {
+    color: #2e75b6;
+    font-size: 0.8rem;
+}
+
+.botones-estado {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.btn-estado {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.btn-estado:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.btn-estado.activa {
+    background-color: #e8f5e9;
+    color: #28a745;
+}
+
+.btn-estado.activa:hover:not(:disabled) {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-estado.mantenimiento {
+    background-color: #fff8e1;
+    color: #f59e0b;
+}
+
+.btn-estado.mantenimiento:hover:not(:disabled) {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.btn-estado.cerrada {
+    background-color: #fdecea;
+    color: #dc3545;
+}
+
+.btn-estado.cerrada:hover:not(:disabled) {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-pasar {
+    background-color: #1e3a5f;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.btn-pasar:hover:not(:disabled) {
+    background-color: #2e75b6;
+}
+
+.btn-pasar:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.mensaje {
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.mensaje.exito {
+    background-color: #e8f5e9;
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.mensaje.error {
+    background-color: #fdecea;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+.cargando {
+    text-align: center;
+    padding: 60px;
+    font-size: 1.2rem;
+    color: #2e75b6;
+}
