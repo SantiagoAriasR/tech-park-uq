@@ -1,28 +1,82 @@
-import { Routes, Route, Link } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
+import { useAuth } from "./context/AuthContext"
+import Login from "./pages/Login"
 import Home from "./pages/Home"
 import Visitantes from "./pages/Visitantes"
-import Admin from "./pages/Admin"
 import Tickets from "./pages/Tickets"
+import Admin from "./pages/Admin"
 import "./App.css"
 
+function RutaProtegida({ children, rolesPermitidos }) {
+    const { usuario } = useAuth()
+    if (!usuario) return <Navigate to="/login" />
+    if (!rolesPermitidos.includes(usuario.rol)) return <Navigate to="/login" />
+    return children
+}
+
 function App() {
+    const { usuario, cerrarSesion } = useAuth()
+
     return (
         <div className="app">
-            <nav className="navbar">
-                <span className="nav-brand">🎢 Tech-Park UQ</span>
-                <div className="nav-links">
-                    <Link to="/">Inicio</Link>
-                    <Link to="/visitantes">Visitantes</Link>
-                    <Link to="/admin">Admin</Link>
-                    <Link to="/tickets">Tickets</Link>
-                </div>
-            </nav>
+            {/* Navbar solo visible si hay sesión */}
+            {usuario && (
+                <nav className="navbar">
+                    <span className="nav-brand">🎢 Tech-Park UQ</span>
+                    <div className="nav-center">
+                        <span className="nav-rol">{usuario.rol}</span>
+                        <span className="nav-nombre">{usuario.nombre}</span>
+                    </div>
+                    <button className="btn-cerrar-sesion" onClick={cerrarSesion}>
+                        Cerrar sesión
+                    </button>
+                </nav>
+            )}
 
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/visitantes" element={<Visitantes />} />
-                <Route path="/admin" element={<Admin />} />
-                <Route path="/tickets" element={<Tickets />} />
+                {/* Ruta pública */}
+                <Route path="/login" element={<Login />} />
+
+                {/* Ruta raíz — redirige según sesión */}
+                <Route path="/" element={
+                    usuario ? <Navigate to={
+                        usuario.rol === "VISITANTE" ? "/visitante" :
+                        usuario.rol === "OPERADOR" ? "/operador" : "/admin"
+                    } /> : <Navigate to="/login" />
+                } />
+
+                {/* Rutas del Administrador */}
+                <Route path="/admin" element={
+                    <RutaProtegida rolesPermitidos={["ADMINISTRADOR"]}>
+                        <Admin />
+                    </RutaProtegida>
+                } />
+
+                {/* Rutas del Visitante — por ahora redirige a Home */}
+                <Route path="/visitante" element={
+                    <RutaProtegida rolesPermitidos={["VISITANTE"]}>
+                        <Home />
+                    </RutaProtegida>
+                } />
+
+                {/* Rutas del Operador — por ahora redirige a Home */}
+                <Route path="/operador" element={
+                    <RutaProtegida rolesPermitidos={["OPERADOR"]}>
+                        <Home />
+                    </RutaProtegida>
+                } />
+
+                {/* Rutas compartidas */}
+                <Route path="/visitantes" element={
+                    <RutaProtegida rolesPermitidos={["ADMINISTRADOR"]}>
+                        <Visitantes />
+                    </RutaProtegida>
+                } />
+                <Route path="/tickets" element={
+                    <RutaProtegida rolesPermitidos={["VISITANTE"]}>
+                        <Tickets />
+                    </RutaProtegida>
+                } />
             </Routes>
         </div>
     )
