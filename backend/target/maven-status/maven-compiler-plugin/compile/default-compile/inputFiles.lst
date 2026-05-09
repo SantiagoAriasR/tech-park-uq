@@ -1,5 +1,6 @@
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\BackendApplication.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\AtraccionController.java
+C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\AuthController.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\ParqueController.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\TicketController.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\VisitanteController.java
@@ -22,4 +23,5 @@ C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\Usuario.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\Visitante.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\Zona.java
+C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\service\AuthService.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\service\ParqueService.java

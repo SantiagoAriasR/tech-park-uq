@@ -15,6 +15,7 @@ public class ParqueService {
     private ArbolBinarioBusqueda arbolAtracciones;
     private ListaEnlazada<Visitante> listaVisitantes;
     private ListaEnlazada<Operador> listaOperadores;
+    private ListaEnlazada<Administrador> listaAdministradores;
 
     // Constructor — inicializa el parque con datos base
     public ParqueService() {
@@ -22,6 +23,7 @@ public class ParqueService {
         this.arbolAtracciones = new ArbolBinarioBusqueda();
         this.listaVisitantes = new ListaEnlazada<>();
         this.listaOperadores = new ListaEnlazada<>();
+        this.listaAdministradores = new ListaEnlazada<>();
         inicializarDatosDePrueba();
     }
 
@@ -118,6 +120,18 @@ public class ParqueService {
 
     public ListaEnlazada<Operador> getListaOperadores() {
         return listaOperadores;
+    }
+
+    // ─────────────────────────────────────────
+    // ADMINISTRADORES
+    // 
+
+    public void registrarAdministrador(Administrador administrador) {
+        listaAdministradores.agregar(administrador);
+    }
+
+    public ListaEnlazada<Administrador> getListaAdministradores() {
+        return listaAdministradores;
     }
 
     // ─────────────────────────────────────────
@@ -238,5 +252,12 @@ public class ParqueService {
                                     "maria@techpark.com", "op123", "Zona Acuática");
         registrarOperador(op1);
         registrarOperador(op2);
+
+        // Crear administradores de prueba
+        Administrador admin = new Administrador(
+        "ADM1", "Director Parque", "000001",
+     "admin@techpark.com", "admin123", "TOTAL"
+        );
+        registrarAdministrador(admin);  
     }
 }
