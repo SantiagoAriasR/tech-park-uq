@@ -1,0 +1,117 @@
+.home {
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cargando {
+    text-align: center;
+    padding: 60px;
+    font-size: 1.2rem;
+    color: #667eea;
+}
+
+.parque-info {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2e75b6 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.parque-info h2 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-numero {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+.seccion-titulo {
+    font-size: 1.5rem;
+    color: #1e3a5f;
+    margin-bottom: 20px;
+}
+
+.atracciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.atraccion-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-left: 5px solid #28a745;
+    transition: transform 0.2s;
+}
+
+.atraccion-card:hover {
+    transform: translateY(-4px);
+}
+
+.atraccion-card.inactiva {
+    border-left-color: #dc3545;
+    opacity: 0.7;
+}
+
+.atraccion-card h4 {
+    font-size: 1.1rem;
+    color: #1e3a5f;
+    margin-bottom: 6px;
+}
+
+.tipo {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.estado {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: #e8f5e9;
+    color: #28a745;
+    margin-bottom: 12px;
+}
+
+.atraccion-card.inactiva .estado {
+    background-color: #fdecea;
+    color: #dc3545;
+}
+
+.detalles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85rem;
+    color: #555;
+}
