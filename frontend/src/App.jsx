@@ -5,6 +5,7 @@ import Home from "./pages/Home"
 import Visitantes from "./pages/Visitantes"
 import Tickets from "./pages/Tickets"
 import Admin from "./pages/Admin"
+import PanelVisitante from "./pages/PanelVisitante"
 import "./App.css"
 
 function RutaProtegida({ children, rolesPermitidos }) {
@@ -55,7 +56,7 @@ function App() {
                 {/* Rutas del Visitante — por ahora redirige a Home */}
                 <Route path="/visitante" element={
                     <RutaProtegida rolesPermitidos={["VISITANTE"]}>
-                        <Home />
+                        <PanelVisitante />
                     </RutaProtegida>
                 } />
 

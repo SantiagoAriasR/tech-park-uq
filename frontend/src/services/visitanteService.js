@@ -21,3 +21,33 @@ export async function registrarVisitante(visitante) {
     })
     return res.json()
 }
+
+// Obtener historial de visitas
+export async function getHistorial(documento) {
+    const res = await fetch(`${BASE_URL}/visitantes/${documento}/historial`)
+    return res.json()
+}
+
+// Obtener favoritos
+export async function getFavoritos(documento) {
+    const res = await fetch(`${BASE_URL}/visitantes/${documento}/favoritos`)
+    return res.json()
+}
+
+// Agregar a favoritos
+export async function agregarFavorito(documento, atraccion) {
+    const res = await fetch(`${BASE_URL}/visitantes/${documento}/favoritos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ atraccion })
+    })
+    return res.json()
+}
+
+// Eliminar de favoritos
+export async function eliminarFavorito(documento, atraccion) {
+    const res = await fetch(`${BASE_URL}/visitantes/${documento}/favoritos/${atraccion}`, {
+        method: "DELETE"
+    })
+    return res.json()
+}
