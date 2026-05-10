@@ -230,6 +230,9 @@ function Admin() {
         <Link to="/zonas" className="btn-zonas">
           🏗️ Gestionar Zonas
         </Link>
+        <Link to="/atracciones" className="btn-zonas">
+          🎢 Gestionar Atracciones
+        </Link>
       </div>
 
       {/* SECCIÓN: Atracciones */}

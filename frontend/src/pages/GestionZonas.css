@@ -371,3 +371,39 @@
     font-size: 1.2rem;
     color: #2e75b6;
 }
+
+.asignar-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.asignar-form select {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: white;
+}
+
+.asignar-form select:focus {
+    outline: none;
+    border-color: #2e75b6;
+}
+
+.btn-asignar {
+    padding: 8px 16px;
+    background-color: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+}
+
+.btn-asignar:hover:not(:disabled) { opacity: 0.9; }
+.btn-asignar:disabled { opacity: 0.4; cursor: not-allowed; }

@@ -39,3 +39,25 @@ export async function eliminarZona(nombre) {
     })
     return res.json()
 }
+
+// Asignar atracción a zona
+export async function asignarAtraccion(nombreZona, nombreAtraccion) {
+    const res = await fetch(
+        `${BASE_URL}/zonas/${encodeURIComponent(nombreZona)}/atracciones`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ atraccion: nombreAtraccion })
+    })
+    return res.json()
+}
+
+// Asignar operador a zona
+export async function asignarOperador(nombreZona, documento) {
+    const res = await fetch(
+        `${BASE_URL}/zonas/${encodeURIComponent(nombreZona)}/operadores`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ documento })
+    })
+    return res.json()
+}

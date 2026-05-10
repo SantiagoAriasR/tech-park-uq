@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Visitantes from "./pages/Visitantes";
 import Tickets from "./pages/Tickets";
 import Admin from "./pages/Admin";
+import GestionAtracciones from "./pages/GestionAtracciones";
 import PanelVisitante from "./pages/PanelVisitante";
 import PanelOperador from "./pages/PanelOperador";
 import MapaParque from "./pages/MapaParque";
@@ -109,6 +110,14 @@ function App() {
           element={
             <RutaProtegida rolesPermitidos={["ADMINISTRADOR"]}>
               <Visitantes />
+            </RutaProtegida>
+          }
+        />
+        <Route
+          path="/atracciones"
+          element={
+            <RutaProtegida rolesPermitidos={["ADMINISTRADOR"]}>
+              <GestionAtracciones />
             </RutaProtegida>
           }
         />

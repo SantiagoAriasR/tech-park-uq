@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react"
 import { getZonas, getZona, crearZona,
-         actualizarZona, eliminarZona } from "../services/zonaService"
+         actualizarZona, eliminarZona,
+         asignarAtraccion, asignarOperador } from "../services/zonaService"
+import { getAtracciones } from "../services/atraccionService"
 import "./GestionZonas.css"
 
 const FORM_VACIO = { id: "", nombre: "", capacidadMax: "" }
@@ -9,11 +11,15 @@ function GestionZonas() {
     const [zonas, setZonas] = useState([])
     const [zonaDetalle, setZonaDetalle] = useState(null)
     const [form, setForm] = useState(FORM_VACIO)
-    const [editando, setEditando] = useState(null) // nombre de la zona que se edita
+    const [editando, setEditando] = useState(null)
     const [mostrarForm, setMostrarForm] = useState(false)
     const [mensaje, setMensaje] = useState(null)
     const [cargando, setCargando] = useState(true)
     const [confirmEliminar, setConfirmEliminar] = useState(null)
+    const [todasAtracciones, setTodasAtracciones] = useState([])
+    const [todosOperadores, setTodosOperadores] = useState([])
+    const [atraccionAsignar, setAtraccionAsignar] = useState("")
+    const [operadorAsignar, setOperadorAsignar] = useState("")
 
     function mostrarMensaje(tipo, texto) {
         setMensaje({ tipo, texto })
@@ -22,8 +28,17 @@ function GestionZonas() {
 
     const cargarZonas = useCallback(async () => {
         try {
-            const data = await getZonas()
+            const [data, atr] = await Promise.all([
+                getZonas(),
+                getAtracciones()
+            ])
             setZonas(data)
+            setTodasAtracciones(atr)
+            // Operadores de prueba — se reemplazará con endpoint real
+            setTodosOperadores([
+                { nombre: "Juan Pérez", documento: "111111" },
+                { nombre: "María Torres", documento: "222222" }
+            ])
         } catch {
             mostrarMensaje("error", "Error al cargar zonas")
         } finally {
@@ -85,7 +100,6 @@ function GestionZonas() {
                     capacidadMax: parseInt(form.capacidadMax)
                 })
             }
-
             if (resultado.exito) {
                 mostrarMensaje("exito", resultado.mensaje)
                 handleCancelar()
@@ -111,6 +125,36 @@ function GestionZonas() {
             }
         } catch {
             mostrarMensaje("error", "Error al eliminar la zona")
+        }
+    }
+
+    async function handleAsignarAtraccion(nombreZona) {
+        try {
+            const resultado = await asignarAtraccion(nombreZona, atraccionAsignar)
+            if (resultado.exito) {
+                mostrarMensaje("exito", resultado.mensaje)
+                setAtraccionAsignar("")
+                handleVerDetalle(nombreZona)
+            } else {
+                mostrarMensaje("error", resultado.mensaje)
+            }
+        } catch {
+            mostrarMensaje("error", "Error al asignar atracción")
+        }
+    }
+
+    async function handleAsignarOperador(nombreZona) {
+        try {
+            const resultado = await asignarOperador(nombreZona, operadorAsignar)
+            if (resultado.exito) {
+                mostrarMensaje("exito", resultado.mensaje)
+                setOperadorAsignar("")
+                handleVerDetalle(nombreZona)
+            } else {
+                mostrarMensaje("error", resultado.mensaje)
+            }
+        } catch {
+            mostrarMensaje("error", "Error al asignar operador")
         }
     }
 
@@ -173,7 +217,7 @@ function GestionZonas() {
                     ))}
                 </div>
 
-                {/* Panel derecho — detalle o formulario */}
+                {/* Panel derecho */}
                 <div className="gz-panel">
 
                     {/* Formulario crear/editar */}
@@ -255,7 +299,32 @@ function GestionZonas() {
                                 </div>
                             </div>
 
+                            {/* Asignar atracción */}
                             <h4>Atracciones</h4>
+                            <div className="asignar-form">
+                                <select
+                                    value={atraccionAsignar}
+                                    onChange={e => setAtraccionAsignar(e.target.value)}
+                                >
+                                    <option value="">Asignar atracción...</option>
+                                    {todasAtracciones
+                                        .filter(a => !zonaDetalle.atracciones
+                                            .some(za => za.nombre === a.nombre))
+                                        .map((a, i) => (
+                                            <option key={i} value={a.nombre}>
+                                                {a.nombre}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                <button
+                                    className="btn-asignar"
+                                    onClick={() => handleAsignarAtraccion(zonaDetalle.nombre)}
+                                    disabled={!atraccionAsignar}
+                                >
+                                    Asignar
+                                </button>
+                            </div>
                             {zonaDetalle.atracciones.length > 0 ? (
                                 <div className="detalle-lista">
                                     {zonaDetalle.atracciones.map((a, i) => (
@@ -271,7 +340,32 @@ function GestionZonas() {
                                 <p className="sin-datos">Sin atracciones asignadas</p>
                             )}
 
+                            {/* Asignar operador */}
                             <h4>Operadores</h4>
+                            <div className="asignar-form">
+                                <select
+                                    value={operadorAsignar}
+                                    onChange={e => setOperadorAsignar(e.target.value)}
+                                >
+                                    <option value="">Asignar operador...</option>
+                                    {todosOperadores
+                                        .filter(o => !zonaDetalle.operadores
+                                            .includes(o.nombre))
+                                        .map((o, i) => (
+                                            <option key={i} value={o.documento}>
+                                                {o.nombre}
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                                <button
+                                    className="btn-asignar"
+                                    onClick={() => handleAsignarOperador(zonaDetalle.nombre)}
+                                    disabled={!operadorAsignar}
+                                >
+                                    Asignar
+                                </button>
+                            </div>
                             {zonaDetalle.operadores.length > 0 ? (
                                 <div className="detalle-lista">
                                     {zonaDetalle.operadores.map((op, i) => (
