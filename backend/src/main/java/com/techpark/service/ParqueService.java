@@ -298,6 +298,88 @@ public class ParqueService {
     }
 
     // ─────────────────────────────────────────
+    // CRUD DE ATRACCIONES
+    // ─────────────────────────────────────────
+
+    public boolean crearAtraccionMecanica(String id, String nombre, int capacidad,
+            double alturaMinima, int edadMinima, double costoExtra,
+            double velocidadMax, String nombreZona) {
+        if (arbolAtracciones.buscar(nombre) != null)
+            return false;
+        AtraccionMecanica nueva = new AtraccionMecanica(
+                id, nombre, capacidad, alturaMinima, edadMinima, costoExtra, velocidadMax);
+        agregarAtraccion(nueva, nombreZona);
+        return true;
+    }
+
+    public boolean crearAtraccionAcuatica(String id, String nombre, int capacidad,
+            double alturaMinima, int edadMinima, double costoExtra,
+            double profundidad, String nombreZona) {
+        if (arbolAtracciones.buscar(nombre) != null)
+            return false;
+        AtraccionAcuatica nueva = new AtraccionAcuatica(
+                id, nombre, capacidad, alturaMinima, edadMinima, costoExtra, profundidad);
+        agregarAtraccion(nueva, nombreZona);
+        return true;
+    }
+
+    public boolean eliminarAtraccion(String nombre) {
+        // Eliminar de todas las zonas
+        for (Zona zona : parque.getZonas()) {
+            zona.getAtracciones().removeIf(
+                    a -> a.getNombre().equalsIgnoreCase(nombre));
+        }
+        // No podemos eliminar del ABB directamente sin reimplementarlo
+        // marcamos como CERRADA en su lugar
+        Atraccion atraccion = arbolAtracciones.buscar(nombre);
+        if (atraccion != null) {
+            atraccion.cambiarEstado(EstadoAtraccion.CERRADA);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean actualizarAtraccion(String nombre, int capacidad,
+            double alturaMinima, int edadMinima, double costoExtra) {
+        Atraccion atraccion = arbolAtracciones.buscar(nombre);
+        if (atraccion == null)
+            return false;
+        atraccion.setCapacidad(capacidad);
+        atraccion.setAlturaMinima(alturaMinima);
+        atraccion.setEdadMinima(edadMinima);
+        atraccion.setCostoExtra(costoExtra);
+        return true;
+    }
+
+    // ─────────────────────────────────────────
+    // ASIGNACIONES
+    // ─────────────────────────────────────────
+
+    public boolean asignarAtraccionAZona(String nombreAtraccion, String nombreZona) {
+        Atraccion atraccion = arbolAtracciones.buscar(nombreAtraccion);
+        Zona zona = parque.buscarZona(nombreZona);
+        if (atraccion == null || zona == null)
+            return false;
+
+        // Verificar que no esté ya en esa zona
+        for (Atraccion a : zona.getAtracciones()) {
+            if (a.getNombre().equalsIgnoreCase(nombreAtraccion))
+                return false;
+        }
+        zona.agregarAtraccion(atraccion);
+        return true;
+    }
+
+    public boolean asignarOperadorAZona(String documentoOperador, String nombreZona) {
+        Operador operador = buscarOperador(documentoOperador);
+        Zona zona = parque.buscarZona(nombreZona);
+        if (operador == null || zona == null)
+            return false;
+        zona.agregarOperador(operador);
+        return true;
+    }
+
+    // ─────────────────────────────────────────
     // CRUD DE ZONAS
     // ─────────────────────────────────────────
 

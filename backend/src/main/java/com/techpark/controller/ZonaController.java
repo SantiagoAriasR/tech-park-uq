@@ -24,13 +24,12 @@ public class ZonaController {
         List<Map<String, Object>> resultado = new ArrayList<>();
         for (Zona zona : parqueService.listarZonas()) {
             resultado.add(Map.of(
-                "id", zona.getId(),
-                "nombre", zona.getNombre(),
-                "capacidadMax", zona.getCapacidadMax(),
-                "totalAtracciones", zona.getAtracciones().size(),
-                "atraccionesActivas", zona.contarAtraccionesActivas(),
-                "totalOperadores", zona.getOperadores().size()
-            ));
+                    "id", zona.getId(),
+                    "nombre", zona.getNombre(),
+                    "capacidadMax", zona.getCapacidadMax(),
+                    "totalAtracciones", zona.getAtracciones().size(),
+                    "atraccionesActivas", zona.contarAtraccionesActivas(),
+                    "totalOperadores", zona.getOperadores().size()));
         }
         return resultado;
     }
@@ -51,11 +50,40 @@ public class ZonaController {
 
         boolean exito = parqueService.crearZona(id, nombre, capacidadMax);
         return Map.of(
-            "exito", exito,
-            "mensaje", exito
-                ? "Zona creada correctamente"
-                : "Ya existe una zona con ese nombre"
-        );
+                "exito", exito,
+                "mensaje", exito
+                        ? "Zona creada correctamente"
+                        : "Ya existe una zona con ese nombre");
+    }
+
+    // POST /api/zonas/{nombre}/atracciones
+    // Body: { "atraccion": "Montaña Rusa Extrema" }
+    @PostMapping("/{nombre}/atracciones")
+    public Map<String, Object> asignarAtraccion(
+            @PathVariable String nombre,
+            @RequestBody Map<String, String> body) {
+        boolean exito = parqueService.asignarAtraccionAZona(
+                body.get("atraccion"), nombre);
+        return Map.of(
+                "exito", exito,
+                "mensaje", exito
+                        ? "Atracción asignada correctamente"
+                        : "No se pudo asignar. Verifica que existan la atracción y la zona");
+    }
+
+    // POST /api/zonas/{nombre}/operadores
+    // Body: { "documento": "111111" }
+    @PostMapping("/{nombre}/operadores")
+    public Map<String, Object> asignarOperador(
+            @PathVariable String nombre,
+            @RequestBody Map<String, String> body) {
+        boolean exito = parqueService.asignarOperadorAZona(
+                body.get("documento"), nombre);
+        return Map.of(
+                "exito", exito,
+                "mensaje", exito
+                        ? "Operador asignado correctamente"
+                        : "No se pudo asignar. Verifica que existan el operador y la zona");
     }
 
     // PUT /api/zonas/{nombre} — actualizar zona
@@ -69,9 +97,8 @@ public class ZonaController {
 
         boolean exito = parqueService.actualizarZona(nombre, nuevoNombre, capacidadMax);
         return Map.of(
-            "exito", exito,
-            "mensaje", exito ? "Zona actualizada correctamente" : "Zona no encontrada"
-        );
+                "exito", exito,
+                "mensaje", exito ? "Zona actualizada correctamente" : "Zona no encontrada");
     }
 
     // DELETE /api/zonas/{nombre} — eliminar zona
@@ -79,8 +106,7 @@ public class ZonaController {
     public Map<String, Object> eliminarZona(@PathVariable String nombre) {
         boolean exito = parqueService.eliminarZona(nombre);
         return Map.of(
-            "exito", exito,
-            "mensaje", exito ? "Zona eliminada correctamente" : "Zona no encontrada"
-        );
+                "exito", exito,
+                "mensaje", exito ? "Zona eliminada correctamente" : "Zona no encontrada");
     }
 }
