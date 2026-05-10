@@ -5,6 +5,7 @@ import com.techpark.estructuras.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -294,6 +295,64 @@ public class ParqueService {
 
     public AlertaClimatica getAlertaActual() {
         return alertaActual;
+    }
+
+    // ─────────────────────────────────────────
+    // CRUD DE ZONAS
+    // ─────────────────────────────────────────
+
+    public boolean crearZona(String id, String nombre, int capacidadMax) {
+        // Verificar que no exista una zona con el mismo nombre
+        if (parque.buscarZona(nombre) != null) {
+            return false; // ya existe
+        }
+        Zona nuevaZona = new Zona(id, nombre, capacidadMax);
+        parque.agregarZona(nuevaZona);
+        return true;
+    }
+
+    public boolean actualizarZona(String nombre, String nuevoNombre, int nuevaCapacidad) {
+        Zona zona = parque.buscarZona(nombre);
+        if (zona == null)
+            return false;
+        zona.setNombre(nuevoNombre);
+        zona.setCapacidadMax(nuevaCapacidad);
+        return true;
+    }
+
+    public boolean eliminarZona(String nombre) {
+        List<Zona> zonas = parque.getZonas();
+        return zonas.removeIf(z -> z.getNombre().equalsIgnoreCase(nombre));
+    }
+
+    public Map<String, Object> getDetalleZona(String nombre) {
+        Zona zona = parque.buscarZona(nombre);
+        if (zona == null)
+            return Map.of("exito", false, "mensaje", "Zona no encontrada");
+
+        List<Map<String, Object>> atracciones = new ArrayList<>();
+        for (Atraccion a : zona.getAtracciones()) {
+            atracciones.add(Map.of(
+                    "nombre", a.getNombre(),
+                    "tipo", a.getTipo(),
+                    "estado", a.getEstado().toString(),
+                    "capacidad", a.getCapacidad()));
+        }
+
+        List<String> operadores = new ArrayList<>();
+        for (Operador o : zona.getOperadores()) {
+            operadores.add(o.getNombre());
+        }
+
+        return Map.of(
+                "exito", true,
+                "id", zona.getId(),
+                "nombre", zona.getNombre(),
+                "capacidadMax", zona.getCapacidadMax(),
+                "totalAtracciones", atracciones.size(),
+                "atraccionesActivas", zona.contarAtraccionesActivas(),
+                "atracciones", atracciones,
+                "operadores", operadores);
     }
 
     // ─────────────────────────────────────────
