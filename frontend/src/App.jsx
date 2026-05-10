@@ -6,6 +6,8 @@ import Tickets from "./pages/Tickets";
 import Admin from "./pages/Admin";
 import PanelVisitante from "./pages/PanelVisitante";
 import PanelOperador from "./pages/PanelOperador";
+import MapaParque from "./pages/MapaParque";
+import { Link } from "react-router-dom";
 import "./App.css";
 
 function RutaProtegida({ children, rolesPermitidos }) {
@@ -31,6 +33,10 @@ function App() {
           <button className="btn-cerrar-sesion" onClick={cerrarSesion}>
             Cerrar sesión
           </button>
+          <div className="nav-links">
+            <Link to="/">Inicio</Link>
+            <Link to="/mapa">🗺️ Mapa</Link>
+          </div>
         </nav>
       )}
 
@@ -102,6 +108,16 @@ function App() {
           element={
             <RutaProtegida rolesPermitidos={["VISITANTE"]}>
               <Tickets />
+            </RutaProtegida>
+          }
+        />
+        <Route
+          path="/mapa"
+          element={
+            <RutaProtegida
+              rolesPermitidos={["VISITANTE", "ADMINISTRADOR", "OPERADOR"]}
+            >
+              <MapaParque />
             </RutaProtegida>
           }
         />
