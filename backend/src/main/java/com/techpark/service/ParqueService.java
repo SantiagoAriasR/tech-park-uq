@@ -24,6 +24,7 @@ public class ParqueService {
     private int alertasMantenimiento;
     private int totalTicketsVendidos;
     private double ingresosTotales;
+    private GrafoParque grafoParque;
 
     // Constructor — inicializa el parque con datos base
     public ParqueService() {
@@ -37,6 +38,7 @@ public class ParqueService {
         this.alertasMantenimiento = 0;
         this.totalTicketsVendidos = 0;
         this.ingresosTotales = 0.0;
+        this.grafoParque = new GrafoParque();
         inicializarDatosDePrueba();
     }
 
@@ -338,6 +340,26 @@ public class ParqueService {
     }
 
     // ─────────────────────────────────────────
+    // GRAFO
+    // ─────────────────────────────────────────
+
+    public Map<String, Object> calcularRutaOptima(String origen, String destino) {
+        return grafoParque.dijkstra(origen, destino);
+    }
+
+    public List<String> recorridoBFS(String inicio) {
+        return grafoParque.bfs(inicio);
+    }
+
+    public Map<String, Object> getEstructuraGrafo() {
+        return grafoParque.getEstructura();
+    }
+
+    public GrafoParque getGrafoParque() {
+        return grafoParque;
+    }
+
+    // ─────────────────────────────────────────
     // DATOS DE PRUEBA
     // ─────────────────────────────────────────
 
@@ -387,5 +409,26 @@ public class ParqueService {
                 "ADM1", "Director Parque", "000001",
                 "admin@techpark.com", "admin123", "TOTAL");
         registrarAdministrador(admin);
+
+        // Construir el grafo del parque
+        grafoParque.agregarNodo("Entrada Principal");
+        grafoParque.agregarNodo("Montaña Rusa Extrema");
+        grafoParque.agregarNodo("Free Fall Tower");
+        grafoParque.agregarNodo("Rapids River");
+        grafoParque.agregarNodo("Splash Zone");
+        grafoParque.agregarNodo("Zona Aventura");
+        grafoParque.agregarNodo("Zona Acuática");
+        grafoParque.agregarNodo("Restaurante Central");
+
+        // Conexiones con distancias en metros
+        grafoParque.agregarConexion("Entrada Principal", "Zona Aventura", 150);
+        grafoParque.agregarConexion("Entrada Principal", "Restaurante Central", 80);
+        grafoParque.agregarConexion("Zona Aventura", "Montaña Rusa Extrema", 120);
+        grafoParque.agregarConexion("Zona Aventura", "Free Fall Tower", 90);
+        grafoParque.agregarConexion("Zona Aventura", "Zona Acuática", 200);
+        grafoParque.agregarConexion("Zona Acuática", "Rapids River", 100);
+        grafoParque.agregarConexion("Zona Acuática", "Splash Zone", 80);
+        grafoParque.agregarConexion("Restaurante Central", "Zona Acuática", 160);
+        grafoParque.agregarConexion("Free Fall Tower", "Rapids River", 250);
     }
 }
