@@ -1,0 +1,373 @@
+.gestion-zonas {
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.gz-header h2 {
+    font-size: 1.8rem;
+    color: #1e3a5f;
+}
+
+.btn-nueva-zona {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2e75b6 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.btn-nueva-zona:hover { opacity: 0.9; }
+
+.gz-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .gz-layout { grid-template-columns: 1fr; }
+}
+
+.gz-lista h3 {
+    color: #1e3a5f;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+}
+
+.zona-item {
+    background: white;
+    border: 2px solid #e0eaf5;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.zona-item:hover { border-color: #2e75b6; }
+.zona-item.seleccionada {
+    border-color: #1e3a5f;
+    background-color: #f0f6ff;
+}
+
+.zona-item-info h4 {
+    color: #1e3a5f;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.zona-item-stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: #666;
+}
+
+.zona-item-acciones {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-editar,
+.btn-eliminar {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-editar:hover {
+    background-color: #fff8e1;
+    border-color: #f59e0b;
+}
+
+.btn-eliminar:hover {
+    background-color: #fdecea;
+    border-color: #dc3545;
+}
+
+.gz-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    min-height: 300px;
+}
+
+.gz-form-container h3,
+.gz-detalle h3 {
+    color: #1e3a5f;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f4f8;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-group input {
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2e75b6;
+}
+
+.form-botones {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.btn-guardar {
+    flex: 1;
+    padding: 11px;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2e75b6 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: opacity 0.2s;
+}
+
+.btn-guardar:hover { opacity: 0.9; }
+
+.btn-cancelar {
+    padding: 11px 20px;
+    background: #f0f4f8;
+    color: #555;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-cancelar:hover { background-color: #e0e8f0; }
+
+.detalle-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.det-stat {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2e75b6 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.det-num {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.det-label {
+    font-size: 0.75rem;
+    opacity: 0.85;
+}
+
+.gz-detalle h4 {
+    color: #1e3a5f;
+    font-size: 1rem;
+    margin: 16px 0 10px;
+}
+
+.detalle-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detalle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background-color: #f8faff;
+    border-radius: 8px;
+    border: 1px solid #e0eaf5;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.estado-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.estado-badge.activa {
+    background-color: #e8f5e9;
+    color: #28a745;
+}
+
+.estado-badge.cerrada {
+    background-color: #fdecea;
+    color: #dc3545;
+}
+
+.estado-badge.en_mantenimiento {
+    background-color: #fff8e1;
+    color: #f59e0b;
+}
+
+.sin-datos {
+    color: #aaa;
+    font-size: 0.9rem;
+    padding: 8px 0;
+}
+
+.gz-vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #aaa;
+    text-align: center;
+    gap: 8px;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.modal h3 {
+    color: #1e3a5f;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+
+.modal p {
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.modal-advertencia {
+    color: #dc3545;
+    font-size: 0.85rem;
+    background-color: #fdecea;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.modal-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-confirmar-eliminar {
+    flex: 1;
+    padding: 11px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: opacity 0.2s;
+}
+
+.btn-confirmar-eliminar:hover { opacity: 0.9; }
+
+.btn-cancelar-modal {
+    flex: 1;
+    padding: 11px;
+    background: #f0f4f8;
+    color: #555;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-cancelar-modal:hover { background-color: #e0e8f0; }
+
+.mensaje {
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.mensaje.exito {
+    background-color: #e8f5e9;
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.mensaje.error {
+    background-color: #fdecea;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+.cargando {
+    text-align: center;
+    padding: 60px;
+    font-size: 1.2rem;
+    color: #2e75b6;
+}

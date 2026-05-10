@@ -7,6 +7,7 @@ import Admin from "./pages/Admin";
 import PanelVisitante from "./pages/PanelVisitante";
 import PanelOperador from "./pages/PanelOperador";
 import MapaParque from "./pages/MapaParque";
+import GestionZonas from "./pages/GestionZonas";
 import { Link } from "react-router-dom";
 import "./App.css";
 
@@ -70,6 +71,14 @@ function App() {
           element={
             <RutaProtegida rolesPermitidos={["ADMINISTRADOR"]}>
               <Admin />
+            </RutaProtegida>
+          }
+        />
+        <Route
+          path="/zonas"
+          element={
+            <RutaProtegida rolesPermitidos={["ADMINISTRADOR"]}>
+              <GestionZonas />
             </RutaProtegida>
           }
         />

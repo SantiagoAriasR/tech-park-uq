@@ -492,3 +492,22 @@
     color: #888;
     padding: 24px;
 }
+
+.btn-zonas {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f0f4f8;
+    color: #1e3a5f;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: 2px solid #ddd;
+    transition: all 0.2s;
+    margin-bottom: 24px;
+}
+
+.btn-zonas:hover {
+    border-color: #1e3a5f;
+    background-color: #e0eaf5;
+}
