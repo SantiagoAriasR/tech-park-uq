@@ -329,3 +329,30 @@
     font-size: 1.2rem;
     color: #2e75b6;
 }
+.ga-header-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-conexion {
+    background-color: #f0f4f8;
+    color: #1e3a5f;
+    border: 2px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-conexion:hover {
+    border-color: #1e3a5f;
+    background-color: #e0eaf5;
+}
+
+.form-desc {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}

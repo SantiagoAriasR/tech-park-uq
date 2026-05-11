@@ -8,32 +8,36 @@ import "./MapaParque.css";
 
 // Posiciones fijas para cada nodo en el canvas
 const POSICIONES = {
-  "Entrada Principal": { x: 380, y: 460 },
-  "Montaña Rusa Extrema": { x: 180, y: 280 },
-  "Free Fall Tower": { x: 380, y: 200 },
-  "Rapids River": { x: 580, y: 280 },
-  "Splash Zone": { x: 580, y: 420 },
-};
+    "Entrada Principal":    { x: 380, y: 460 },
+    "Montaña Rusa Extrema": { x: 160, y: 260 },
+    "Free Fall Tower":      { x: 380, y: 160 },
+    "Rapids River":         { x: 600, y: 260 },
+    "Splash Zone":          { x: 600, y: 420 },
+}
+
+// Posiciones disponibles para nodos nuevos — slots predefinidos sin solaparse
+const SLOTS_DISPONIBLES = [
+    { x: 160, y: 420 },
+    { x: 160, y: 100 },
+    { x: 380, y: 60  },
+    { x: 600, y: 100 },
+    { x: 680, y: 320 },
+    { x: 480, y: 480 },
+    { x: 260, y: 480 },
+    { x: 80,  y: 320 },
+]
 
 // Genera posiciones en círculo para nodos sin posición fija
 function calcularPosiciones(nodos) {
-  const posiciones = { ...POSICIONES };
-  const nodosSinPosicion = nodos.filter((n) => !POSICIONES[n.id]);
+    const posiciones = { ...POSICIONES }
+    const nodosSinPosicion = nodos.filter(n => !POSICIONES[n.id])
 
-  const centroX = 380;
-  const centroY = 330;
-  const radio = 160;
-  const total = nodosSinPosicion.length;
+    nodosSinPosicion.forEach((nodo, i) => {
+        const slot = SLOTS_DISPONIBLES[i % SLOTS_DISPONIBLES.length]
+        posiciones[nodo.id] = { ...slot }
+    })
 
-  nodosSinPosicion.forEach((nodo, i) => {
-    const angulo = (2 * Math.PI * i) / total - Math.PI / 2;
-    posiciones[nodo.id] = {
-      x: Math.round(centroX + radio * Math.cos(angulo)),
-      y: Math.round(centroY + radio * Math.sin(angulo)),
-    };
-  });
-
-  return posiciones;
+    return posiciones
 }
 
 const COLORES = {
