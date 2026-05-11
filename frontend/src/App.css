@@ -71,3 +71,21 @@
 .btn-cerrar-sesion:hover {
     background-color: rgba(255,255,255,0.25);
 }
+.nav-acciones {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-mapa {
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.nav-mapa:hover {
+    opacity: 1;
+}

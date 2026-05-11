@@ -10,6 +10,7 @@ import PanelOperador from "./pages/PanelOperador";
 import MapaParque from "./pages/MapaParque";
 import GestionZonas from "./pages/GestionZonas";
 import { Link } from "react-router-dom";
+import Notificaciones from "./components/Notificaciones";
 import "./App.css";
 
 function RutaProtegida({ children, rolesPermitidos }) {
@@ -32,12 +33,16 @@ function App() {
             <span className="nav-rol">{usuario.rol}</span>
             <span className="nav-nombre">{usuario.nombre}</span>
           </div>
-          <button className="btn-cerrar-sesion" onClick={cerrarSesion}>
-            Cerrar sesión
-          </button>
-          <div className="nav-links">
-            <Link to="/">Inicio</Link>
-            <Link to="/mapa">🗺️ Mapa</Link>
+          <div className="nav-acciones">
+            <Link to="/mapa" className="nav-mapa">
+              🗺️ Mapa
+            </Link>
+            {usuario.rol === "VISITANTE" && (
+              <Notificaciones documento={usuario.documento} />
+            )}
+            <button className="btn-cerrar-sesion" onClick={cerrarSesion}>
+              Cerrar sesión
+            </button>
           </div>
         </nav>
       )}
