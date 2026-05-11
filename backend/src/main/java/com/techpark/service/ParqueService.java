@@ -27,6 +27,7 @@ public class ParqueService {
     private double ingresosTotales;
     private GrafoParque grafoParque;
     private ListaEnlazada<RevisionTecnica> revisiones;
+    private ListaEnlazada<Notificacion> notificaciones;
 
     // Constructor — inicializa el parque con datos base
     public ParqueService() {
@@ -42,6 +43,7 @@ public class ParqueService {
         this.ingresosTotales = 0.0;
         this.grafoParque = new GrafoParque();
         this.revisiones = new ListaEnlazada<>();
+        this.notificaciones = new ListaEnlazada<>();
         inicializarDatosDePrueba();
     }
 
@@ -245,6 +247,24 @@ public class ParqueService {
         if (!atraccion.visitanteCumpleRequisitos(visitante))
             return false;
 
+        // Validar capacidad de la zona
+        Zona zonaAtraccion = null;
+        for (Zona z : parque.getZonas()) {
+            for (Atraccion a : z.getAtracciones()) {
+                if (a.getNombre().equalsIgnoreCase(nombreAtraccion)) {
+                    zonaAtraccion = z;
+                    break;
+                }
+            }
+        }
+
+        if (zonaAtraccion != null) {
+            ColaPrioridad colaZona = obtenerColaDeAtraccion(nombreAtraccion);
+            if (colaZona.getTamanio() >= zonaAtraccion.getCapacidadMax()) {
+                return false; // zona llena
+            }
+        }
+
         // Crear el ticket según el tipo
         Ticket ticket;
         String id = "T-" + System.currentTimeMillis();
@@ -342,6 +362,34 @@ public class ParqueService {
             }
         }
 
+        // Notificar a todos los visitantes con tickets en cola
+        Nodo<Visitante> nodoV = listaVisitantes.getCabeza();
+        while (nodoV != null) {
+            Visitante v = nodoV.dato;
+            // Verificar si tiene tickets en alguna cola activa
+            Nodo<Object[]> nodoCola = colasDeAtracciones.getCabeza();
+            while (nodoCola != null) {
+                ColaPrioridad cola = (ColaPrioridad) nodoCola.dato[1];
+                // Recorrer la cola para ver si el visitante está
+                Nodo<Ticket> nodoTicket = cola.getCabeza();
+                while (nodoTicket != null) {
+                    if (nodoTicket.dato.getVisitante().getDocumento()
+                            .equals(v.getDocumento())) {
+                        Notificacion notif = new Notificacion(
+                                v.getDocumento(),
+                                "⚠️ Alerta " + tipo + ": " + descripcion +
+                                        ". Su atracción puede haber sido cerrada.",
+                                Notificacion.TipoNotificacion.ALERTA_CLIMATICA);
+                        notificaciones.agregar(notif);
+                        break;
+                    }
+                    nodoTicket = nodoTicket.siguiente;
+                }
+                nodoCola = nodoCola.siguiente;
+            }
+            nodoV = nodoV.siguiente;
+        }
+
         return Map.of(
                 "exito", true,
                 "tipo", tipo.toString(),
@@ -375,6 +423,53 @@ public class ParqueService {
 
     public AlertaClimatica getAlertaActual() {
         return alertaActual;
+    }
+
+    // ─────────────────────────────────────────
+    // NOTIFICACIONES
+    // ─────────────────────────────────────────
+
+    public List<Map<String, Object>> getNotificacionesVisitante(String documento) {
+        List<Map<String, Object>> lista = new ArrayList<>();
+        Nodo<Notificacion> actual = notificaciones.getCabeza();
+        while (actual != null) {
+            Notificacion n = actual.dato;
+            if (n.getDocumentoVisitante().equals(documento)) {
+                lista.add(Map.of(
+                        "id", n.getId(),
+                        "mensaje", n.getMensaje(),
+                        "tipo", n.getTipo().toString(),
+                        "fecha", n.getFecha().toString(),
+                        "leida", n.isLeida()));
+            }
+            actual = actual.siguiente;
+        }
+        return lista;
+    }
+
+    public boolean marcarNotificacionLeida(String idNotificacion) {
+        Nodo<Notificacion> actual = notificaciones.getCabeza();
+        while (actual != null) {
+            if (actual.dato.getId().equals(idNotificacion)) {
+                actual.dato.setLeida(true);
+                return true;
+            }
+            actual = actual.siguiente;
+        }
+        return false;
+    }
+
+    public int contarNotificacionesNoLeidas(String documento) {
+        int contador = 0;
+        Nodo<Notificacion> actual = notificaciones.getCabeza();
+        while (actual != null) {
+            if (actual.dato.getDocumentoVisitante().equals(documento)
+                    && !actual.dato.isLeida()) {
+                contador++;
+            }
+            actual = actual.siguiente;
+        }
+        return contador;
     }
 
     // ─────────────────────────────────────────

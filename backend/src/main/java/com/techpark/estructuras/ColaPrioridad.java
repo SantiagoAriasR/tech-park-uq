@@ -13,6 +13,10 @@ public class ColaPrioridad {
         this.tamanio = 0;
     }
 
+    public Nodo<Ticket> getCabeza() {
+    return cabeza;
+}
+
     // Encolar un ticket respetando su prioridad
     // Mayor prioridad queda más al frente
     public void encolar(Ticket ticket) {
