@@ -68,14 +68,14 @@ public class ParqueService {
     // ─────────────────────────────────────────
 
     public void agregarAtraccion(Atraccion atraccion, String nombreZona) {
-    Zona zona = parque.buscarZona(nombreZona);
-    if (zona != null) {
-        zona.agregarAtraccion(atraccion);
-        arbolAtracciones.insertar(atraccion);
-        // Solo agregar el nodo al grafo, SIN conexión automática
-        grafoParque.agregarNodo(atraccion.getNombre());
+        Zona zona = parque.buscarZona(nombreZona);
+        if (zona != null) {
+            zona.agregarAtraccion(atraccion);
+            arbolAtracciones.insertar(atraccion);
+            // Solo agregar el nodo al grafo, SIN conexión automática
+            grafoParque.agregarNodo(atraccion.getNombre());
+        }
     }
-}
 
     public Atraccion buscarAtraccionPorNombre(String nombre) {
         return arbolAtracciones.buscar(nombre); // búsqueda O(log n) en el ABB
@@ -610,6 +610,65 @@ public class ParqueService {
     }
 
     // ─────────────────────────────────────────
+    // CRUD DE OPERADORES
+    // ─────────────────────────────────────────
+
+    public boolean crearOperador(String id, String nombre, String documento,
+            String email, String contrasena, String zonaAsignada) {
+        // Verificar que no exista con ese documento
+        if (buscarOperador(documento) != null)
+            return false;
+        Operador nuevo = new Operador(id, nombre, documento, email, contrasena, zonaAsignada);
+        listaOperadores.agregar(nuevo);
+        // Asignar a la zona si existe
+        Zona zona = parque.buscarZona(zonaAsignada);
+        if (zona != null)
+            zona.agregarOperador(nuevo);
+        return true;
+    }
+
+    public boolean actualizarOperador(String documento, String nuevoNombre,
+            String nuevoEmail, String nuevaZona) {
+        Operador operador = buscarOperador(documento);
+        if (operador == null)
+            return false;
+        operador.setNombre(nuevoNombre);
+        operador.setEmail(nuevoEmail);
+        operador.setZonaAsignada(nuevaZona);
+        return true;
+    }
+
+    public boolean eliminarOperador(String documento) {
+        Nodo<Operador> actual = listaOperadores.getCabeza();
+        int indice = 0;
+        while (actual != null) {
+            if (actual.dato.getDocumento().equals(documento)) {
+                return listaOperadores.eliminar(indice);
+            }
+            actual = actual.siguiente;
+            indice++;
+        }
+        return false;
+    }
+
+    public List<Map<String, Object>> listarOperadores() {
+        List<Map<String, Object>> lista = new ArrayList<>();
+        Nodo<Operador> actual = listaOperadores.getCabeza();
+        while (actual != null) {
+            Operador o = actual.dato;
+            lista.add(Map.of(
+                    "id", o.getId(),
+                    "nombre", o.getNombre(),
+                    "documento", o.getDocumento(),
+                    "email", o.getEmail(),
+                    "zonaAsignada", o.getZonaAsignada(),
+                    "disponible", o.isDisponible()));
+            actual = actual.siguiente;
+        }
+        return lista;
+    }
+
+    // ─────────────────────────────────────────
     // REPORTES
     // ─────────────────────────────────────────
 
@@ -724,24 +783,24 @@ public class ParqueService {
         registrarAdministrador(admin);
 
         // Nodos del grafo
-grafoParque.agregarNodo("Entrada Principal");
-grafoParque.agregarNodo("Montaña Rusa Extrema");
-grafoParque.agregarNodo("Free Fall Tower");
-grafoParque.agregarNodo("Rapids River");
-grafoParque.agregarNodo("Splash Zone");
+        grafoParque.agregarNodo("Entrada Principal");
+        grafoParque.agregarNodo("Montaña Rusa Extrema");
+        grafoParque.agregarNodo("Free Fall Tower");
+        grafoParque.agregarNodo("Rapids River");
+        grafoParque.agregarNodo("Splash Zone");
 
-// Conexiones reales entre atracciones
-// Entrada Principal conecta con las más cercanas
-grafoParque.agregarConexion("Entrada Principal", "Montaña Rusa Extrema", 250);
-grafoParque.agregarConexion("Entrada Principal", "Free Fall Tower", 300);
-grafoParque.agregarConexion("Entrada Principal", "Rapids River", 400);
+        // Conexiones reales entre atracciones
+        // Entrada Principal conecta con las más cercanas
+        grafoParque.agregarConexion("Entrada Principal", "Montaña Rusa Extrema", 250);
+        grafoParque.agregarConexion("Entrada Principal", "Free Fall Tower", 300);
+        grafoParque.agregarConexion("Entrada Principal", "Rapids River", 400);
 
-// Conexiones entre atracciones de la misma zona
-grafoParque.agregarConexion("Montaña Rusa Extrema", "Free Fall Tower", 120);
-grafoParque.agregarConexion("Rapids River", "Splash Zone", 80);
+        // Conexiones entre atracciones de la misma zona
+        grafoParque.agregarConexion("Montaña Rusa Extrema", "Free Fall Tower", 120);
+        grafoParque.agregarConexion("Rapids River", "Splash Zone", 80);
 
-// Conexiones entre zonas
-grafoParque.agregarConexion("Free Fall Tower", "Rapids River", 350);
-grafoParque.agregarConexion("Montaña Rusa Extrema", "Splash Zone", 450);
+        // Conexiones entre zonas
+        grafoParque.agregarConexion("Free Fall Tower", "Rapids River", 350);
+        grafoParque.agregarConexion("Montaña Rusa Extrema", "Splash Zone", 450);
     }
 }
