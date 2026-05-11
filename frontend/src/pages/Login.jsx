@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login } from "../services/authService"
 import { useAuth } from "../context/AuthContext"
+import {Link} from "react-router-dom"
 import "./Login.css"
 
 function Login() {
@@ -113,6 +114,13 @@ function Login() {
                         <span>admin@techpark.com / admin123</span>
                     </div>
                 </div>
+                <div className="login-registro">
+    <p>¿No tienes cuenta?{" "}
+        <Link to="/registro" className="link-registro">
+            Regístrate aquí
+        </Link>
+    </p>
+</div>
             </div>
         </div>
     )

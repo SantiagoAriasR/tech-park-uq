@@ -144,3 +144,17 @@
     background-color: #fdecea;
     color: #dc3545;
 }
+.login-registro {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.link-registro {
+    color: #2e75b6;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link-registro:hover { text-decoration: underline; }

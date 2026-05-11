@@ -89,3 +89,15 @@
 .nav-mapa:hover {
     opacity: 1;
 }
+
+.nav-brand {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.nav-brand:hover {
+    opacity: 0.85;
+}

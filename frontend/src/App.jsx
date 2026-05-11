@@ -11,6 +11,7 @@ import MapaParque from "./pages/MapaParque";
 import GestionZonas from "./pages/GestionZonas";
 import { Link } from "react-router-dom";
 import Notificaciones from "./components/Notificaciones";
+import Registro from "./pages/Registro"
 import "./App.css";
 
 function RutaProtegida({ children, rolesPermitidos }) {
@@ -28,7 +29,18 @@ function App() {
       {/* Navbar solo visible si hay sesión */}
       {usuario && (
         <nav className="navbar">
-          <span className="nav-brand">🎢 Tech-Park UQ</span>
+          <Link
+            to={
+              usuario.rol === "VISITANTE"
+                ? "/visitante"
+                : usuario.rol === "OPERADOR"
+                  ? "/operador"
+                  : "/admin"
+            }
+            className="nav-brand"
+          >
+            🎢 Tech-Park UQ
+          </Link>
           <div className="nav-center">
             <span className="nav-rol">{usuario.rol}</span>
             <span className="nav-nombre">{usuario.nombre}</span>
@@ -50,6 +62,7 @@ function App() {
       <Routes>
         {/* Ruta pública */}
         <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
 
         {/* Ruta raíz — redirige según sesión */}
         <Route
