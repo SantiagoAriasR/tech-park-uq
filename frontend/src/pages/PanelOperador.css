@@ -310,3 +310,142 @@
     font-size: 1.2rem;
     color: #2e75b6;
 }
+.form-revision {
+    max-width: 600px;
+    margin-bottom: 32px;
+}
+
+.resultado-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.resultado-opcion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.resultado-opcion:hover { border-color: #2e75b6; }
+.resultado-opcion.seleccionado {
+    border-color: #1e3a5f;
+    background-color: #ebf3fb;
+}
+
+.resultado-opcion .op-icono {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.resultado-opcion .op-valor {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #1e3a5f;
+}
+
+.resultado-opcion .op-desc {
+    display: block;
+    font-size: 0.78rem;
+    color: #888;
+    margin-top: 2px;
+}
+
+.form-group textarea {
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.2s;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2e75b6;
+}
+
+.btn-registrar-revision {
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2e75b6 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: opacity 0.2s;
+}
+
+.btn-registrar-revision:hover { opacity: 0.9; }
+
+.historial-revisiones {
+    margin-top: 8px;
+}
+
+.historial-revisiones h4 {
+    color: #1e3a5f;
+    margin-bottom: 16px;
+    font-size: 1rem;
+}
+
+.revision-item {
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 2px solid #ddd;
+}
+
+.revision-item.aprobada {
+    border-color: #28a745;
+    background-color: #f0faf0;
+}
+
+.revision-item.requiere_mantenimiento {
+    border-color: #f59e0b;
+    background-color: #fffbeb;
+}
+
+.revision-item.fuera_de_servicio {
+    border-color: #dc3545;
+    background-color: #fef2f2;
+}
+
+.revision-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.revision-resultado {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.revision-fecha {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.revision-obs {
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 6px;
+    line-height: 1.5;
+}
+
+.revision-operador {
+    font-size: 0.82rem;
+    color: #888;
+}
