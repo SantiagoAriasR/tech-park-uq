@@ -68,17 +68,14 @@ public class ParqueService {
     // ─────────────────────────────────────────
 
     public void agregarAtraccion(Atraccion atraccion, String nombreZona) {
-        Zona zona = parque.buscarZona(nombreZona);
-        if (zona != null) {
-            zona.agregarAtraccion(atraccion);
-            arbolAtracciones.insertar(atraccion);
-            // Agregar al grafo como nodo nuevo
-            grafoParque.agregarNodo(atraccion.getNombre());
-            // Conectar con la Entrada Principal por defecto
-            grafoParque.agregarConexion(
-                    "Entrada Principal", atraccion.getNombre(), 300);
-        }
+    Zona zona = parque.buscarZona(nombreZona);
+    if (zona != null) {
+        zona.agregarAtraccion(atraccion);
+        arbolAtracciones.insertar(atraccion);
+        // Solo agregar el nodo al grafo, SIN conexión automática
+        grafoParque.agregarNodo(atraccion.getNombre());
     }
+}
 
     public Atraccion buscarAtraccionPorNombre(String nombre) {
         return arbolAtracciones.buscar(nombre); // búsqueda O(log n) en el ABB
@@ -726,20 +723,25 @@ public class ParqueService {
                 "admin@techpark.com", "admin123", "TOTAL");
         registrarAdministrador(admin);
 
-        // Construir el grafo con las atracciones como nodos
-        grafoParque.agregarNodo("Entrada Principal");
-        grafoParque.agregarNodo("Montaña Rusa Extrema");
-        grafoParque.agregarNodo("Free Fall Tower");
-        grafoParque.agregarNodo("Rapids River");
-        grafoParque.agregarNodo("Splash Zone");
+        // Nodos del grafo
+grafoParque.agregarNodo("Entrada Principal");
+grafoParque.agregarNodo("Montaña Rusa Extrema");
+grafoParque.agregarNodo("Free Fall Tower");
+grafoParque.agregarNodo("Rapids River");
+grafoParque.agregarNodo("Splash Zone");
 
-        // Conexiones entre atracciones con distancias en metros
-        grafoParque.agregarConexion("Entrada Principal", "Montaña Rusa Extrema", 250);
-        grafoParque.agregarConexion("Entrada Principal", "Free Fall Tower", 300);
-        grafoParque.agregarConexion("Entrada Principal", "Rapids River", 400);
-        grafoParque.agregarConexion("Montaña Rusa Extrema", "Free Fall Tower", 120);
-        grafoParque.agregarConexion("Free Fall Tower", "Rapids River", 350);
-        grafoParque.agregarConexion("Rapids River", "Splash Zone", 80);
-        grafoParque.agregarConexion("Montaña Rusa Extrema", "Splash Zone", 450);
+// Conexiones reales entre atracciones
+// Entrada Principal conecta con las más cercanas
+grafoParque.agregarConexion("Entrada Principal", "Montaña Rusa Extrema", 250);
+grafoParque.agregarConexion("Entrada Principal", "Free Fall Tower", 300);
+grafoParque.agregarConexion("Entrada Principal", "Rapids River", 400);
+
+// Conexiones entre atracciones de la misma zona
+grafoParque.agregarConexion("Montaña Rusa Extrema", "Free Fall Tower", 120);
+grafoParque.agregarConexion("Rapids River", "Splash Zone", 80);
+
+// Conexiones entre zonas
+grafoParque.agregarConexion("Free Fall Tower", "Rapids River", 350);
+grafoParque.agregarConexion("Montaña Rusa Extrema", "Splash Zone", 450);
     }
 }
