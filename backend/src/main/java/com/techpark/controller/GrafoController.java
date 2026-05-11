@@ -38,9 +38,29 @@ public class GrafoController {
     public Map<String, Object> getBFS(@RequestParam String inicio) {
         List<String> recorrido = parqueService.recorridoBFS(inicio);
         return Map.of(
-            "inicio", inicio,
-            "recorrido", recorrido,
-            "totalNodos", recorrido.size()
-        );
+                "inicio", inicio,
+                "recorrido", recorrido,
+                "totalNodos", recorrido.size());
+    }
+
+    // POST /api/grafo/conexion
+    // Body: { "origen": "Montaña Rusa Extrema", "destino": "Columpio Extremo",
+    // "distancia": 150 }
+    @PostMapping("/conexion")
+    public Map<String, Object> agregarConexion(@RequestBody Map<String, Object> body) {
+        String origen = (String) body.get("origen");
+        String destino = (String) body.get("destino");
+        int distancia = (int) body.get("distancia");
+        parqueService.getGrafoParque().agregarConexion(origen, destino, distancia);
+        return Map.of(
+                "exito", true,
+                "mensaje", "Conexión agregada: " + origen + " ↔ " + destino);
+    }
+
+    // GET /api/grafo/nodos
+    // Lista todos los nodos del grafo
+    @GetMapping("/nodos")
+    public Map<String, Object> getNodos() {
+        return Map.of("nodos", parqueService.getGrafoParque().getNodos());
     }
 }
