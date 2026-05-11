@@ -5,6 +5,7 @@ C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\GrafoController.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\OperadorController.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\ParqueController.java
+C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\RevisionController.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\TicketController.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\VisitanteController.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\controller\ZonaController.java
@@ -25,6 +26,7 @@ C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\Operador.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\Parque.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\ReporteJornada.java
+C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\RevisionTecnica.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\Ticket.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\TicketFamiliar.java
 C:\Users\cocqu\OneDrive\Escritorio\Ing. Sistemas\2026-1 Ing. Sistemas\tech-park-uq\backend\src\main\java\com\techpark\model\TicketFastPass.java

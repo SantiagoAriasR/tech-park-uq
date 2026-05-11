@@ -26,6 +26,7 @@ public class ParqueService {
     private int totalTicketsVendidos;
     private double ingresosTotales;
     private GrafoParque grafoParque;
+    private ListaEnlazada<RevisionTecnica> revisiones;
 
     // Constructor — inicializa el parque con datos base
     public ParqueService() {
@@ -40,6 +41,7 @@ public class ParqueService {
         this.totalTicketsVendidos = 0;
         this.ingresosTotales = 0.0;
         this.grafoParque = new GrafoParque();
+        this.revisiones = new ListaEnlazada<>();
         inicializarDatosDePrueba();
     }
 
@@ -91,6 +93,79 @@ public class ParqueService {
             return true;
         }
         return false;
+    }
+
+    // ─────────────────────────────────────────
+    // REVISIONES TÉCNICAS
+    // ─────────────────────────────────────────
+
+    public boolean registrarRevision(String nombreAtraccion, String documentoOperador,
+            String resultado, String observaciones) {
+
+        Atraccion atraccion = arbolAtracciones.buscar(nombreAtraccion);
+        Operador operador = buscarOperador(documentoOperador);
+
+        if (atraccion == null || operador == null)
+            return false;
+
+        RevisionTecnica.Resultado res = RevisionTecnica.Resultado.valueOf(resultado);
+
+        RevisionTecnica revision = new RevisionTecnica(
+                "R-" + System.currentTimeMillis(),
+                nombreAtraccion,
+                operador.getNombre(),
+                res,
+                observaciones);
+
+        revisiones.agregar(revision);
+
+        // Si requiere mantenimiento o está fuera de servicio
+        // cambia el estado automáticamente
+        if (res == RevisionTecnica.Resultado.REQUIERE_MANTENIMIENTO) {
+            atraccion.cambiarEstado(EstadoAtraccion.EN_MANTENIMIENTO);
+            alertasMantenimiento++;
+        } else if (res == RevisionTecnica.Resultado.FUERA_DE_SERVICIO) {
+            atraccion.cambiarEstado(EstadoAtraccion.CERRADA);
+            alertasMantenimiento++;
+        }
+
+        return true;
+    }
+
+    public List<Map<String, Object>> getRevisiones() {
+        List<Map<String, Object>> lista = new ArrayList<>();
+        Nodo<RevisionTecnica> actual = revisiones.getCabeza();
+        while (actual != null) {
+            RevisionTecnica r = actual.dato;
+            lista.add(Map.of(
+                    "id", r.getId(),
+                    "atraccion", r.getNombreAtraccion(),
+                    "operador", r.getNombreOperador(),
+                    "fecha", r.getFecha().toString(),
+                    "resultado", r.getResultado().toString(),
+                    "observaciones", r.getObservaciones()));
+            actual = actual.siguiente;
+        }
+        return lista;
+    }
+
+    public List<Map<String, Object>> getRevisionesPorAtraccion(String nombreAtraccion) {
+        List<Map<String, Object>> lista = new ArrayList<>();
+        Nodo<RevisionTecnica> actual = revisiones.getCabeza();
+        while (actual != null) {
+            RevisionTecnica r = actual.dato;
+            if (r.getNombreAtraccion().equalsIgnoreCase(nombreAtraccion)) {
+                lista.add(Map.of(
+                        "id", r.getId(),
+                        "atraccion", r.getNombreAtraccion(),
+                        "operador", r.getNombreOperador(),
+                        "fecha", r.getFecha().toString(),
+                        "resultado", r.getResultado().toString(),
+                        "observaciones", r.getObservaciones()));
+            }
+            actual = actual.siguiente;
+        }
+        return lista;
     }
 
     // ─────────────────────────────────────────
