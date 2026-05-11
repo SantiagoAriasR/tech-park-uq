@@ -21,3 +21,19 @@ export async function getBFS(inicio) {
     )
     return res.json()
 }
+
+// Agregar conexión entre dos nodos del grafo
+export async function agregarConexion(origen, destino, distancia) {
+    const res = await fetch(`${BASE_URL}/grafo/conexion`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ origen, destino, distancia })
+    })
+    return res.json()
+}
+
+// Obtener nodos del grafo
+export async function getNodosGrafo() {
+    const res = await fetch(`${BASE_URL}/grafo/nodos`)
+    return res.json()
+}
