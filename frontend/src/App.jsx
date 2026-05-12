@@ -11,7 +11,8 @@ import MapaParque from "./pages/MapaParque";
 import GestionZonas from "./pages/GestionZonas";
 import { Link } from "react-router-dom";
 import Notificaciones from "./components/Notificaciones";
-import Registro from "./pages/Registro"
+import Registro from "./pages/Registro";
+import GestionOperadores from "./pages/GestionOperadores";
 import "./App.css";
 
 function RutaProtegida({ children, rolesPermitidos }) {
@@ -81,6 +82,15 @@ function App() {
             ) : (
               <Navigate to="/login" />
             )
+          }
+        />
+
+        <Route
+          path="/operadores"
+          element={
+            <RutaProtegida rolesPermitidos={["ADMINISTRADOR"]}>
+              <GestionOperadores />
+            </RutaProtegida>
           }
         />
 
