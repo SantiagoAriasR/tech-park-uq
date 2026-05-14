@@ -3,7 +3,6 @@ package com.techpark;
 import com.techpark.model.*;
 import com.techpark.service.ParqueService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
