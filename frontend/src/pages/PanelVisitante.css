@@ -355,3 +355,119 @@
     font-size: 1.2rem;
     color: #2e75b6;
 }
+
+.perfil-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .perfil-layout { grid-template-columns: 1fr; }
+}
+
+.perfil-card {
+    background: #f8faff;
+    border: 2px solid #e0eaf5;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.perfil-card h3 {
+    color: #1e3a5f;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e0eaf5;
+}
+
+.saldo-actual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2e75b6 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.saldo-label {
+    font-size: 0.82rem;
+    opacity: 0.85;
+    margin-bottom: 4px;
+}
+
+.saldo-grande {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.montos-rapidos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.btn-monto {
+    padding: 8px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1e3a5f;
+    transition: all 0.2s;
+}
+
+.btn-monto:hover {
+    border-color: #2e75b6;
+    background-color: #ebf3fb;
+}
+
+.btn-recargar {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: opacity 0.2s;
+}
+
+.btn-recargar:hover { opacity: 0.9; }
+
+.perfil-info {
+    background: white;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #e0eaf5;
+}
+
+.perfil-info p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.perfil-info p:last-child { margin-bottom: 0; }
+
+.btn-actualizar-perfil {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2e75b6 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 8px;
+    transition: opacity 0.2s;
+}
+
+.btn-actualizar-perfil:hover { opacity: 0.9; }

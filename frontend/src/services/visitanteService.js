@@ -22,6 +22,26 @@ export async function registrarVisitante(visitante) {
     return res.json()
 }
 
+// Recargar saldo del visitante
+export async function recargarSaldo(documento, monto) {
+    const res = await fetch(`${BASE_URL}/visitantes/${documento}/saldo`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ monto })
+    })
+    return res.json()
+}
+
+// Actualizar perfil del visitante
+export async function actualizarPerfil(documento, datos) {
+    const res = await fetch(`${BASE_URL}/visitantes/${documento}/perfil`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(datos)
+    })
+    return res.json()
+}
+
 // Obtener historial de visitas
 export async function getHistorial(documento) {
     const res = await fetch(`${BASE_URL}/visitantes/${documento}/historial`)
