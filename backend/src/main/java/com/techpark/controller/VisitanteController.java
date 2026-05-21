@@ -105,4 +105,44 @@ public class VisitanteController {
                 "exito", exito,
                 "mensaje", exito ? "Visitante registrado correctamente" : "Parque lleno o error en el registro");
     }
+    // PUT /api/visitantes/{documento}/saldo
+// Body: { "monto": 50000 }
+@PutMapping("/{documento}/saldo")
+public Map<String, Object> recargarSaldo(
+        @PathVariable String documento,
+        @RequestBody Map<String, Object> body) {
+    Visitante visitante = parqueService.buscarVisitante(documento);
+    if (visitante == null) {
+        return Map.of("exito", false, "mensaje", "Visitante no encontrado");
+    }
+    double monto = ((Number) body.get("monto")).doubleValue();
+    if (monto <= 0) {
+        return Map.of("exito", false, "mensaje", "El monto debe ser mayor a 0");
+    }
+    visitante.setSaldo(visitante.getSaldo() + monto);
+    return Map.of(
+        "exito", true,
+        "mensaje", "Saldo recargado correctamente",
+        "nuevoSaldo", visitante.getSaldo()
+    );
+}
+
+// PUT /api/visitantes/{documento}/perfil
+// Body: { "nombre": "Carlos Garcia", "email": "carlos@email.com" }
+@PutMapping("/{documento}/perfil")
+public Map<String, Object> actualizarPerfil(
+        @PathVariable String documento,
+        @RequestBody Map<String, String> body) {
+    Visitante visitante = parqueService.buscarVisitante(documento);
+    if (visitante == null) {
+        return Map.of("exito", false, "mensaje", "Visitante no encontrado");
+    }
+    if (body.containsKey("nombre")) visitante.setNombre(body.get("nombre"));
+    if (body.containsKey("email")) visitante.setEmail(body.get("email"));
+    if (body.containsKey("contrasena")) visitante.setContrasena(body.get("contrasena"));
+    return Map.of(
+        "exito", true,
+        "mensaje", "Perfil actualizado correctamente"
+    );
+}
 }
